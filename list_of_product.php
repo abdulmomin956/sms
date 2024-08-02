@@ -31,33 +31,54 @@ if (!empty($user_first_name) && !empty($user_last_name)) {
     </head>
 
     <body>
-        <?php
-        $sql = "SELECT * FROM product";
-        $query = $conn->query($sql);
-        echo "<table border='1'>
-            <tr>
-                <th>Product</th>
-                <th>Category</th>
-                <th>Code</th>
-                <th>Date</th>
-                <th>Action</th>
-            </tr>";
-        while ($data = mysqli_fetch_assoc($query)) {
-            $product_id = $data['product_id'];
-            $product_name = $data['product_name'];
-            $product_category = $data['product_category'];
-            $product_code = $data['product_code'];
-            $product_entrydate = $data['product_entrydate'];
-            echo "<tr>
-                <td>$product_name</td>
-                <td>$data_list[$product_category]</td>
-                <td>$product_code</td>
-                <td>$product_entrydate</td>
-                <td><a href='edit_product.php?id=$product_id'>Edit</a></td>
-            </tr>";
-        }
-        echo "</table>";
-        ?>
+        <div class="container bg-light">
+            <div class="container-fluid border-bottom border-success">
+                <?php include('header.php'); ?>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <?php include('sidebar.php'); ?>
+                    <div class="col-sm-9 border-start border-success">
+                        <div class="container p-4 m-4">
+
+                            <?php
+                            $sql = "SELECT * FROM product";
+                            $query = $conn->query($sql);
+                            echo "<table class='table table-success table-striped table-hover'>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Category</th>
+                                        <th>Code</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                    </tr>";
+                            while ($data = mysqli_fetch_assoc($query)) {
+                                $product_id = $data['product_id'];
+                                $product_name = $data['product_name'];
+                                $product_category = $data['product_category'];
+                                $product_code = $data['product_code'];
+                                $product_entrydate = $data['product_entrydate'];
+                                echo "<tr>
+                                        <td>$product_name</td>
+                                        <td>$data_list[$product_category]</td>
+                                        <td>$product_code</td>
+                                        <td>$product_entrydate</td>
+                                        <td>
+                                            <a href='edit_product.php?id=$product_id' class='btn btn-success'>Edit</a>
+                                            <a href='#' class='btn btn-danger'>Delete</a>
+                                        </td>
+                                    </tr>";
+                            }
+                            echo "</table>";
+                            ?>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php include('footer.php'); ?>
+        </div><!--end of body-->
+
     </body>
 
     </html>

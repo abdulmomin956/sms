@@ -15,36 +15,44 @@ session_start();
 </head>
 
 <body>
-    <?php
-    if (isset($_POST["user_email"])) {
-        $user_email = $_POST["user_email"];
-        $user_password = $_POST["user_password"];
+    <div class="container bg-light vh-100 d-flex justify-content-center align-items-center">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="d-flex justify-content-center align-items-center border border-success p-5 m-4">
 
-        $sql = "SELECT * FROM users WHERE user_email='$user_email' AND user_password='$user_password'";
-        $query = $conn->query($sql);
+                <?php
+                if (isset($_POST["user_email"])) {
+                    $user_email = $_POST["user_email"];
+                    $user_password = $_POST["user_password"];
 
-        if (mysqli_num_rows($query) > 0) {
-            $data = mysqli_fetch_array($query);
-            $user_first_name = $data['user_first_name'];
-            $user_last_name = $data['user_last_name'];
+                    $sql = "SELECT * FROM users WHERE user_email='$user_email' AND user_password='$user_password'";
+                    $query = $conn->query($sql);
 
-            $_SESSION['user_first_name'] = $user_first_name;
-            $_SESSION['user_last_name'] = $user_last_name;
+                    if (mysqli_num_rows($query) > 0) {
+                        $data = mysqli_fetch_array($query);
+                        $user_first_name = $data['user_first_name'];
+                        $user_last_name = $data['user_last_name'];
 
-            header('location:index.php');
-        } else {
-            echo "email or password wrong!";
-        }
-    }
+                        $_SESSION['user_first_name'] = $user_first_name;
+                        $_SESSION['user_last_name'] = $user_last_name;
 
-    ?>
-    <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
-        User's Email :<br>
-        <input type="email" name="user_email"><br><br>
-        User's Password :<br>
-        <input type="password" name="user_password"><br><br>
-        <input type="submit" value="Login">
-    </form>
+                        header('location:index.php');
+                    } else {
+                        echo "email or password wrong!";
+                    }
+                }
+
+                ?>
+                <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST" class="d-flex flex-column justify-content-center  ">
+                    User's Email :<br>
+                    <input type="email" name="user_email"><br>
+                    User's Password :<br>
+                    <input type="password" name="user_password"><br>
+                    <input type="submit" value="Login" class='btn btn-success'>
+                </form>
+            </div>
+        </div>
+    </div><!--end of body-->
+
 </body>
 
 </html>
